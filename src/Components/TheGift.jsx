@@ -57,9 +57,27 @@ const HeartSVG = ({ progress, cx, cy, scale, svgW, svgH, color }) => {
   )
 }
 
+// Function to preload images
+const preloadImages = (imageUrls) => {
+  return Promise.all(
+    imageUrls.map((url) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image()
+        img.src = url
+        img.onload = () => resolve(url)
+        img.onerror = () => reject(new Error(`Failed to load image: ${url}`))
+      })
+    })
+  )
+}
+
 const TheGift = ({ userId }) => {
   // Get the configuration for this user
   const config = getGiftConfig(userId)
+  
+  // Add loading state
+  const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [loadError, setLoadError] = useState(null)
   
   // If no config found (invalid user), show error or redirect
   if (!config) {
@@ -84,18 +102,48 @@ const TheGift = ({ userId }) => {
   const [position, setPosition] = useState(generatePosition())
   const [positions] = useState(() => config.images.map(() => generatePosition()))
 
+  // Preload images when component mounts
+  useEffect(() => {
+    let isMounted = true
+    
+    const loadImages = async () => {
+      try {
+        await preloadImages(config.images)
+        if (isMounted) {
+          setImagesLoaded(true)
+        }
+      } catch (error) {
+        console.error('Failed to load images:', error)
+        if (isMounted) {
+          setLoadError(error.message)
+        }
+      }
+    }
+    
+    loadImages()
+    
+    return () => {
+      isMounted = false
+    }
+  }, [config.images])
+
   const targetProgress = (step + 1) * 0.25
 
+  // Only start animation when images are loaded
   useEffect(() => {
+    if (!imagesLoaded) return
     if (step >= 4) return
     if (heartProgress >= targetProgress) return
+    
     const timer = setTimeout(() => {
       setHeartProgress(prev => Math.min(prev + 0.008, targetProgress))
     }, 16)
+    
     return () => clearTimeout(timer)
-  }, [heartProgress, targetProgress, step])
+  }, [heartProgress, targetProgress, step, imagesLoaded])
 
   useEffect(() => {
+    if (!imagesLoaded) return
     if (step >= 4) return
     if (heartProgress < targetProgress) return
 
@@ -116,7 +164,42 @@ const TheGift = ({ userId }) => {
     }, 2500)
 
     return () => clearTimeout(pause)
-  }, [heartProgress, targetProgress, step, config.images.length])
+  }, [heartProgress, targetProgress, step, config.images.length, imagesLoaded])
+
+  // Show loading screen while images are loading
+  if (!imagesLoaded && !loadError) {
+    return (
+      <div className='h-full flex flex-col items-center justify-center gap-4'>
+        <div className="relative">
+          <div className="w-16 h-16 border-4 border-red-200 border-t-red-500 rounded-full animate-spin"></div>
+        </div>
+        <p className='font-body text-xl text-gray-600 animate-pulse'>
+          Preparing your gift...
+        </p>
+        <p className='font-body text-sm text-gray-400'>
+          Loading {config.images.length} memories
+        </p>
+      </div>
+    )
+  }
+
+  // Show error if loading failed
+  if (loadError) {
+    return (
+      <div className='h-full flex items-center justify-center flex-col gap-4'>
+        <h1 className='font-love-light text-4xl text-red-500'>Connection Issue</h1>
+        <p className='font-body text-xl text-gray-600 text-center px-4'>
+          Having trouble loading the gift. Please check your connection and try again.
+        </p>
+        <button 
+          onClick={() => window.location.reload()}
+          className='px-6 py-2 outline-4 outline-double rounded-2xl outline-red-500 text-red-500 bg-[#faf9f0] hover:scale-105 transition-transform'
+        >
+          Try Again
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className='relative w-full h-full overflow-hidden flex items-center justify-center'>
