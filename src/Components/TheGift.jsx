@@ -9,8 +9,6 @@ const TheGift = () => {
           src={v1}
           controls
           autoPlay
-          loop
-          muted
           className='w-full h-auto rounded-lg shadow-2xl'
         >
           Your browser does not support the video tag.
