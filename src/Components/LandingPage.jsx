@@ -1,3 +1,4 @@
+// LandingPage.jsx
 import { useState } from 'react'
 import TheGift from './TheGift'
 
@@ -17,7 +18,7 @@ const nextSize = {
   shrink4: null,
 }
 
-const LandingPage = () => {
+const LandingPage = ({ userId }) => {
   const [show, setShow] = useState('home')
   const [buttonSize, setButtonSize] = useState('normal')
 
@@ -80,7 +81,7 @@ const LandingPage = () => {
       )}
 
       {show === 'Yes' && (
-        <TheGift />
+        <TheGift userId={userId} />
       )}
 
     </div>

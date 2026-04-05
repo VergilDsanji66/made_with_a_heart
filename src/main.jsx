@@ -1,21 +1,18 @@
 // main.jsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './index.css'
-import App from './App.jsx'
-import TheGift from './Components/TheGift.jsx'
+import Lethu from './Users/Lethu.jsx'
+import Ndivho from './Users/Ndivho.jsx'
+
+const router = createBrowserRouter([
+  {path: 'lethu_luv/:id?', element: <Lethu/>},
+  {path: 'ndivho/:id?', element: <Ndivho/>}
+])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        
-        {/* Direct gift routes - bypass landing page */}
-        <Route path="/lethu" element={<TheGift />} />
-        <Route path="/Ndivho" element={<TheGift />} />
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </StrictMode>,
 )

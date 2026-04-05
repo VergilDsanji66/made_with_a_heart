@@ -1,6 +1,5 @@
 // TheGift.jsx
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 import { getGiftConfig } from '../assets/assets'
 
 const randomBetween = (min, max) => Math.random() * (max - min) + min
@@ -58,14 +57,11 @@ const HeartSVG = ({ progress, cx, cy, scale, svgW, svgH, color }) => {
   )
 }
 
-const TheGift = () => {
-  // Get the route parameter (lethu or Ndivho)
-  const { route } = useParams()
+const TheGift = ({ userId }) => {
+  // Get the configuration for this user
+  const config = getGiftConfig(userId)
   
-  // Get the configuration for this route
-  const config = getGiftConfig(route)
-  
-  // If no config found (invalid route), show error or redirect
+  // If no config found (invalid user), show error or redirect
   if (!config) {
     return (
       <div className='h-full flex items-center justify-center flex-col gap-4'>
