@@ -26,8 +26,8 @@ export const giftConfigs = {
     words: ['A', 'Smile', 'I Love', 'A Presence I Admire'],
     finalTitle: 'A new friend,',
     finalMessage: 'A new memory to hold dear ✨',
-    heartColor: '#6a9ee0',
-    textColor: 'text-blue-400'
+    heartColor: '#FF69B4',
+    textColor: 'text-pink-400'
   }
   // Add more people here easily!
 }
