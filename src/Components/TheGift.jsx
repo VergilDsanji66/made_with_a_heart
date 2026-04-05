@@ -1,17 +1,7 @@
+// TheGift.jsx
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getGiftConfig } from '../assets/assets'
-
-// If NOT using React Router, use this hook:
-const usePathname = () => {
-  const [pathname, setPathname] = useState(window.location.pathname)
-  useEffect(() => {
-    const handlePopState = () => setPathname(window.location.pathname)
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [])
-  return pathname
-}
 
 const randomBetween = (min, max) => Math.random() * (max - min) + min
 
@@ -69,9 +59,27 @@ const HeartSVG = ({ progress, cx, cy, scale, svgW, svgH, color }) => {
 }
 
 const TheGift = () => {
-  // Get the current route
-  const pathname = usePathname()
-  const config = getGiftConfig(pathname)
+  // Get the route parameter (lethu or Ndivho)
+  const { route } = useParams()
+  
+  // Get the configuration for this route
+  const config = getGiftConfig(route)
+  
+  // If no config found (invalid route), show error or redirect
+  if (!config) {
+    return (
+      <div className='h-full flex items-center justify-center flex-col gap-4'>
+        <h1 className='font-love-light text-4xl text-red-500'>Oops!</h1>
+        <p className='font-body text-xl text-gray-600'>This gift doesn't exist.</p>
+        <button 
+          onClick={() => window.location.href = '/'}
+          className='px-6 py-2 outline-4 outline-double rounded-2xl outline-red-500 text-red-500 bg-[#faf9f0]'
+        >
+          Go Home
+        </button>
+      </div>
+    )
+  }
   
   const [step, setStep] = useState(0)
   const [heartProgress, setHeartProgress] = useState(0)
