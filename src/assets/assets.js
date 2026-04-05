@@ -14,6 +14,11 @@ import cimg1 from '../assets/cimg1.jpeg'
 import cimg2 from '../assets/cimg2.jpeg'
 import cimg3 from '../assets/cimg3.jpeg'
 
+import rimg0 from '../assets/rimg0.jpeg'
+import rimg1 from '../assets/rimg1.jpeg'
+import rimg2 from '../assets/rimg2.jpeg'
+import rimg3 from '../assets/rimg3.jpeg'
+
 export const giftConfigs = {
   lethu: {
     id: 'lethu',
@@ -42,11 +47,22 @@ export const giftConfigs = {
     name: 'Cecilia',
     images: [cimg0, cimg1, cimg2, cimg3],
     words: ['A', 'Smile', 'A Treasure', 'A Presence I Miss'],
-    finalTitle: 'A old friend,',
+    finalTitle: 'An old friend,',
     finalMessage: 'A beautiful memory to hold forever',
     heartColor: '#FF69B4',
     textColor: 'text-pink-400',
     bgGlow: 'rgba(255,105,180,0.15)'
+  },
+  roto: {
+    id: 'roto',
+    name: 'Roto',
+    images: [rimg0, rimg1, rimg2, rimg3],
+    words: ['Congratulations', 'Graduate', 'So Proud', 'Of You!'],
+    finalTitle: 'A milestone achieved,',
+    finalMessage: 'Your hard work paid off! 🎓✨',
+    heartColor: '#4A90E2',
+    textColor: 'text-blue-500',
+    bgGlow: 'rgba(74,144,226,0.15)'
   }
 }
 
