@@ -1,4 +1,3 @@
-// App.jsx
 import LandingPage from './Components/LandingPage'
 
 const App = () => {
