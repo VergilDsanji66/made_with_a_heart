@@ -9,6 +9,11 @@ import nimg1 from '../assets/Nimg1.jpeg'
 import nimg2 from '../assets/Nimg2.jpeg'
 import nimg3 from '../assets/Nimg3.jpeg'
 
+import cimg0 from '../assets/cimg0.jpeg'
+import cimg1 from '../assets/cimg1.jpeg'
+import cimg2 from '../assets/cimg2.jpeg'
+import cimg3 from '../assets/cimg3.jpeg'
+
 export const giftConfigs = {
   lethu: {
     id: 'lethu',
@@ -25,9 +30,20 @@ export const giftConfigs = {
     id: 'ndivho',
     name: 'Ndivho',
     images: [nimg0, nimg1, nimg2, nimg3],
-    words: ['A', 'Smile', 'I Treasure', 'A Presence I Adore'],
+    words: ['A', 'Smile', 'A Treasure', 'A Presence I Adore'],
     finalTitle: 'A new friend,',
-    finalMessage: 'A beautiful memory to hold forever 🌸',
+    finalMessage: 'A beautiful memory to hold forever',
+    heartColor: '#FF69B4',
+    textColor: 'text-pink-400',
+    bgGlow: 'rgba(255,105,180,0.15)'
+  }, 
+  cecilia: {
+    id: 'cecilia',
+    name: 'Cecilia',
+    images: [cimg0, cimg1, cimg2, cimg3],
+    words: ['A', 'Smile', 'A Treasure', 'A Presence I Miss'],
+    finalTitle: 'A old friend,',
+    finalMessage: 'A beautiful memory to hold forever',
     heartColor: '#FF69B4',
     textColor: 'text-pink-400',
     bgGlow: 'rgba(255,105,180,0.15)'
