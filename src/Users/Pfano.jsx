@@ -19,7 +19,7 @@ const Ndivho = () => {
         boxShadow: 'inset 0 0 120px rgba(160, 140, 100, 0.15)',
       }}
     >
-      <LandingPage userId={id || 'ndivho'} />
+      <LandingPage userId={id || 'pfano'} />
     </div>
   )
 }
